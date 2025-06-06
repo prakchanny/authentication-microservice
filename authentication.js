@@ -6,12 +6,12 @@ require('dotenv').config();
 
 app.use(express.json());
 
-const JWT_SECRETE =  "347186591586" 
+const JWT_SECRETE = process.env.JWT_SECRETE
 
 const users = [
     { username: 'joe', password: '123', role: 'student' },
     { username: 'chandan', password: '123', role: 'teacher' },
-];
+]
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
@@ -20,10 +20,10 @@ app.post('/login', (req, res) => {
     
     if (user) {
         const token = jwt.sign({ username: user.username, role: user.role }, JWT_SECRETE, { expiresIn: '24h' });
-        res.json({ token });
+        return res.json({ token });
     }
-    return res.status(401).json({ message: 'Invalid credentials' });
-});
+    return res.status(400).send("Invalid user")
+})
 app.listen(6000, () => {
     console.log('Authentication service is running on port 6000');
-});
+})
