@@ -6,7 +6,7 @@ require('dotenv').config();
 
 app.use(express.json());
 
-const JWT_SECRETE = process.env.JWT_SECRETE
+const JWT_SECRETE = '12345678';
 
 const users = [
     { username: 'joe', password: '123', role: 'student' },
